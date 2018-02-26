@@ -14,11 +14,10 @@
 	</scm>
 
 	<properties>
-		<java.version>9</java.version>
 		<cryptolib.version>1.2.0-SNAPSHOT</cryptolib.version>
 		<dagger.version>2.14.1</dagger.version>
 		<guava.version>23.6-jre</guava.version>
-		<slf4j.version>1.7.25</slf4j.version>
+		<slf4j.version>1.8.0-beta1</slf4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -85,12 +84,6 @@
 			<artifactId>dagger</artifactId>
 			<version>${dagger.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.dagger</groupId>
-			<artifactId>dagger-compiler</artifactId>
-			<version>${dagger.version}</version>
-			<optional>true</optional>
-		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -138,10 +131,17 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<release>${java.version}</release>
+					<source>9</source>
+					<target>9</target>
+					<release>9</release>
 					<showWarnings>true</showWarnings>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>com.google.dagger</groupId>
+							<artifactId>dagger-compiler</artifactId>
+							<version>${dagger.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -228,6 +228,16 @@
 								<goals>
 									<goal>jar</goal>
 								</goals>
+								<configuration>
+									<additionalDependencies>
+										<additionalDependency>
+											<!-- javax.annotation.Generated used by Dagger -->
+											<groupId>javax.annotation</groupId>
+											<artifactId>jsr250-api</artifactId>
+											<version>1.0</version>
+										</additionalDependency>
+									</additionalDependencies>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>

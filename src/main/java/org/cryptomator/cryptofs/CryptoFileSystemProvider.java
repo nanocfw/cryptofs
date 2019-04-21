@@ -87,7 +87,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
  */
 public class CryptoFileSystemProvider extends FileSystemProvider {
 
-	private static final CryptorProvider CRYPTOR_PROVIDER = Cryptors.sgx();
+	private static final CryptorProvider CRYPTOR_PROVIDER = Cryptors.sgx(strongSecureRandom());
 
 	private final CryptoFileSystems fileSystems;
 	private final MoveOperation moveOperation;
